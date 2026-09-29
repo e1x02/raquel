@@ -5,6 +5,12 @@
   font-display: swap;
   src: url("InterVariable.woff2") format("woff2");
 }
+@font-face {
+  font-family: nouveau;
+  font-style: normal;
+  font-weight: normal;
+  src: url("nouveau_nostalgia-webfont.woff2") format("woff2");
+}
 :root{
 --background: #251517;
 --foreground: #CCC7A3;
@@ -20,14 +26,23 @@ background-image: url("/grain.png");
 background-size: 256px 256px;
 display: flex;
 justify-content: center;
+margin: 0;
 }
 h1, h2, h3, h4, h5, h6{
 font-size: 100%;
-font-weight: 800;
+font-weight: 900;
 }
 h1{
-font-weight: 900;
-font-size: 150%;
+font-family: "nouveau";
+font-weight: normal;
+font-size: 400%;
+padding: 0.2em 0.2em 0 0.2em ;
+text-align: center;
+border-image:  url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAKqADAAQAAAABAAAAKgAAAADUGqULAAABaklEQVRYCe2XS07DQBBEY8SR2HAYTsdh2HAnUC+eNaqoVTPDbEoim3Z/qu16sezkeix+vr8+f0bJ2/vHNebd8a6OfS8cxMYiMFLQHGNad/msjjliLlFHRPs41rrLZ3XM5RFVAjghdv2ufloXQ/TpGViEigbPxy6HmJvT/qqO+RiiXPBD7zWXI3Rz2t/VxRC9ynG55F7CMbHrd3V0Grt5rXd5DNHXWefMqWPqLvKNOT1zui+G6H3h5RS3VXT5Ldw8cPu1n0cUMOpEc+ZORd2vOefJI9o5wZHrMzcb3T7t5xGFhDrRnLlTUfdrznnyiKoTl+N0N7r92o8huvzrqZwWxe6d7AirfjaPIbr86wmSSmKVZDfPfu3HEL0vvAhBqYouR+jmtL+riyH6/7+er/h47O4lTtT1u/ppXcw9ivE7KiHNGdS6y/+qyyU663x2TknP6pgjxhB9eo7ioItFaOx17+Zxpo53deyJIfoLlm68tVwt+DsAAAAASUVORK5CYII=") 14 /  14px / 0 round;
+border-width:  14px;
+border-style:  solid;
+padding: 0.5em;
+filter: url("#distort");
 }
 h2::before{content: "§ "}
 h3::before{content: "§§ "}
