@@ -1,0 +1,137 @@
+---
+import { getCollection } from 'astro:content';
+import '/src/styles.css';
+import SEO from '/src/components/seo.astro';
+const { title, description, content } = Astro.props;
+
+const allContent = await getCollection('pages');
+allContent.sort((a, b) => a.data.order - b.data.order);
+
+const getHref = (id: string) => (id === 'index' ? '/' : `/${id}`);
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const currentIndex = allContent.findIndex((page) => {
+  const pagePath = getHref(page.id).replace(/\/$/, '') || '/';
+  return currentPath === pagePath;
+});
+
+const prevPost = currentIndex > 0 ? allContent[currentIndex - 1] : null;
+const nextPost = currentIndex < allContent.length - 1 ? allContent[currentIndex + 1] : null;
+
+const { pathname } = Astro.url;
+---
+<html lang="en">
+	<head>
+		<SEO title={title ? "Raquel Roxy Mellifera ~ " + title : "Raquel Roxy Mellifera"} description={description ? description : ""} />
+	</head>
+	<body>
+		<header>
+      <nav id="site-nav">
+        <ul id="menu-list" class="menu-links">
+          {prevPost ? (
+            <li class="arrow"><a href={getHref(prevPost.id)}>&larr;</a></li>
+          ) : (
+            <li class="arrow"><a class="disabled">&larr;</a></li>
+          )}
+          {allContent
+            .filter(page => page.data.order > 0)
+            .map((page) => {
+              const externalUrl = page.data['external-url'] || page.data.externalUrl;
+              const pageHref = externalUrl || getHref(page.id);
+              const isExternal = Boolean(externalUrl);
+          
+              return (
+                <li>
+                  <a 
+                    href={pageHref} 
+                    title={page.data.title}
+                    class:list={[{ 'external': isExternal }]}
+                    aria-current={!isExternal && (pathname === pageHref || (pageHref !== '/' && pathname.startsWith(pageHref))) ? 'true' : 'false'}
+                  >
+                    {page.data.title}
+                  </a>
+                </li>
+              );
+            })
+          }
+          {nextPost ? (
+            <li class="arrow"><a href={getHref(nextPost.id)}>&rarr;</a></li>
+          ) : (
+            <li class="arrow"><a class="disabled">&rarr;</a></li>
+          )}
+        </ul>
+        <button class="menu-toggle" aria-label="Toggle Menu" aria-expanded="false" aria-controls="menu-list">&equiv;</button>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <div id="decor">
+      <img src="/decoration.svg" class="top left" alt="" />
+      <img src="/decoration.svg" class="top right" alt="" />
+      <img src="/decoration.svg" class="bottom left" alt="" />
+      <img src="/decoration.svg" class="bottom right" alt="" />
+    </div>
+
+    <script>
+      const nav = document.querySelector('#site-nav');
+      const toggle = document.querySelector('.menu-toggle');
+      const menu = document.querySelector('.menu-links');
+      const arrow = document.querySelector('.arrow');
+
+      function checkNavHeight() {
+        if (!nav) return;
+        
+        const wasOverflowing = nav.classList.contains('is-overflowing');
+        if (wasOverflowing) {
+          nav.classList.remove('is-overflowing');
+        }
+        
+        const navHeight = nav.getBoundingClientRect().height;
+        const threshold = window.innerHeight * 0.20;
+
+        if (navHeight > threshold) {
+          nav.classList.add('is-overflowing');
+          arrow.hidden = true;
+        } else {
+          nav.classList.remove('is-overflowing');
+          menu?.classList.remove('is-open');
+          toggle?.setAttribute('aria-expanded', 'false');
+          arrow.hidden = false;
+        }
+      }
+
+      function toggleMenu(forceClose = false) {
+        if (!toggle || !menu) return;
+        const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+        const newState = forceClose ? false : !isOpen;
+
+        toggle.setAttribute('aria-expanded', String(newState));
+        menu.classList.toggle('is-open', newState);
+      }
+
+      toggle?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMenu();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && menu?.classList.contains('is-open')) {
+          toggleMenu(true);
+          toggle?.focus();
+        }
+      });
+
+      document.addEventListener('click', () => {
+        if (menu?.classList.contains('is-open')) {
+          toggleMenu(true);
+        }
+      });
+
+      checkNavHeight();
+      window.addEventListener('resize', checkNavHeight);
+
+      document.addEventListener('astro:page-load', checkNavHeight);
+    </script>
+	</body>
+</html>

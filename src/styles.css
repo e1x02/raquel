@@ -1,0 +1,156 @@
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("InterVariable.woff2") format("woff2");
+}
+:root{
+--background: #251517;
+--foreground: #CCC7A3;
+}
+
+body{
+font-family: "Inter", sans-serif;
+font-size: 14px;
+font-weight: 550;
+color: var(--foreground);
+background-color: var(--background);
+background-image: url("/grain.png");
+background-size: 256px 256px;
+display: flex;
+justify-content: center;
+}
+h1, h2, h3, h4, h5, h6{
+font-size: 100%;
+font-weight: 800;
+}
+h1{
+font-weight: 900;
+font-size: 150%;
+}
+h2::before{content: "§ "}
+h3::before{content: "§§ "}
+h4::before{content: "§§§ "}
+h5::before{content: "§§§§ "}
+h6::before{content: "§§§§§ "}
+
+main{
+margin: 11em 2em;
+width: 500px;
+flex-direction: column;
+}
+main p:has(img){
+display: flex;
+justify-content: center;
+}
+main img{
+height: auto;
+width: auto;
+max-width: 100%;
+max-height: 70vh;
+border-radius: 0.5em;
+}
+
+a{
+color: inherit;
+}
+nav{
+position: fixed;
+z-index: 10;
+bottom: 3%;
+left:0;
+right:0;
+margin: 0 12em;
+display: flex;
+justify-content: center;
+filter: drop-shadow(0 2em 2em var(--background));
+}
+nav .menu-toggle{
+  display: none;
+  align-items: center;
+  background: none;
+  border: none;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 0.5em;
+}
+
+.is-overflowing .menu-toggle {
+	display: flex;
+	width: fit-content;
+}
+
+.is-overflowing .menu-links, .is-overflowing .arrow {
+	display: none;
+}
+.is-overflowing, .is-overflowing .menu-links.is-open {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+nav ul{
+display: flex;
+flex-wrap: wrap;
+list-style-type: none;
+padding:0;
+gap: 2em 1em;
+justify-content: center;
+}
+.button a, nav li a, nav .menu-toggle, .kofi-shop-info a{
+transition: 0.3s;
+text-decoration: none;
+padding: 0 1em;
+border-radius: 0.8em;
+border-image:  url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAFaADAAQAAAABAAAAFQAAAAAIGxIOAAAAnklEQVQ4Ee2VURJAMAxEW2fy4zBO5zB+3IlJkdFONt3M8MdXst19oUzlBK5tXXawpPI4zVmbXiHAHpTx6JyImfJSJh1/Fm7GXWxAbWtmTbFNdvonI0sj/tCbBANuVtICGKOy8IZoiPH/UGaXYp7v9vStz6riSFMJsactbpNhiiTczbqLYACVoUzXgIi3nAcSADdXZA8I/zE9qJDRyXYALo+cY3m/mO4AAAAASUVORK5CYII=") 7 /  7px / 0 round;
+border-width:  7px;
+border-style:  solid;
+background-color: var(--background);
+background-image: url("/grain.png");
+background-size: 256px 256px;
+}
+.button a:hover, nav li a:hover, [aria-current=true], .kofi-shop-info a:hover{
+background: var(--foreground);
+color: var(--background);
+}
+.button{
+margin: 2em 0;
+text-align: center;
+}
+
+nav li a.external::after{
+content: "\00a0\2197"
+}
+nav li a.disabled{opacity: 0.2}
+nav li a.disabled:hover{color: var(--foreground);
+background: var(--background);}
+
+#kofi-shop-embed{
+position: relative;
+}
+div.powered-by-kofi-tools{
+background: transparent!important;
+color: var(--foreground)!important;
+width: 100%;
+}
+div.powered-by-kofi-tools p{
+text-align: center;
+}
+
+#decor > img{
+position: fixed;
+width: 10em;
+fill: var(--foreground);
+}
+#decor > img.top{top: 1em;}
+#decor > img.right{right: 1em;}
+#decor > img.left{left: 1em;}
+#decor > img.bottom{bottom: 1em;}
+
+#decor > img.top.right{transform: scale(-1,-1);}
+#decor > img.top.left{transform: scale(1,-1);}
+#decor > img.bottom.right{transform: scale(-1,1);}
+#decor > img.bottom.left{transform: scale(1,1);}
