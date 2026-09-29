@@ -1,31 +1,38 @@
-# Astro Starter Kit: Minimal
+# Instructions
 
-```sh
-npm create astro@latest -- --template minimal
+All pages are stored in [src/pages](src/pages) as Markdown pages. You should be able to edit this in any text editor.
+
+## Making and Editing New Pages
+
+If you want to add more pages, make a new markdown file with this template:
+
+```
+---
+title:
+description:
+layout: /src/components/main.astro
+order: 0 #set to 0 to hide
+---
+
+Lorem ipsum...
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+The `title` of the page is what appears in the navigation bar. The `description` is the SEO description (this is important to set!).
 
-## 🚀 Project Structure
+Don't change `layout` (this is what gives the page it's style).
 
-Inside of your Astro project, you'll see the following folders and files:
+If you want to hide a page without deleting it, add an underscore before the filename, so `about.md` would go to `_about.md` to be hidden from the site.
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+### Home Page
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+The home page is [src/pages/index.md](src/pages/index.md). It's the same basic format as the other pages.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Changing the Style
 
-Any static assets, like images, can be placed in the `public/` directory.
+The basic layout is defined by [src/components/main.astro](src/components/main.astro). Astro is a file format that is mostly HTML. The CSS style is in this file: [src/styles.css](src/styles.css).
 
-## 🧞 Commands
+
+## Development Commands
 
 All commands are run from the root of the project, from a terminal:
 
@@ -37,7 +44,3 @@ All commands are run from the root of the project, from a terminal:
 | `npm run preview`         | Preview your build locally, before deploying     |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
